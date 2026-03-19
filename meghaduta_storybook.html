@@ -30,6 +30,84 @@
     overflow-x: hidden;
   }
 
+  /* ── PAGE NAVIGATION ── */
+  .book {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+
+  /* Hide all sections except active */
+  .book-section { display: none; }
+  .book-section.active { display: block; }
+
+  /* Pages inside active section are always visible — no fade-in needed */
+  .book-section.active .page { opacity: 1 !important; transform: none !important; }
+
+  /* Cover — no full height in paged mode */
+  .book-section.active .cover {
+    min-height: auto;
+    padding: 40px 20px 30px;
+  }
+
+  /* Cover always uses its own section */
+  .cover { min-height: 100vh; }
+
+  /* Nav bar fixed at bottom */
+  .nav-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 14px 20px;
+    background: linear-gradient(to top, rgba(10,5,0,0.97) 80%, transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    background: transparent;
+    border: 1px solid var(--gold);
+    padding: 9px 22px;
+    cursor: pointer;
+    transition: all 0.25s;
+    outline: none;
+  }
+  .nav-btn:hover { background: var(--gold); color: #1a0800; }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+  .nav-btn:disabled:hover { background: transparent; color: var(--parchment); }
+
+  .nav-page-info {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    min-width: 160px;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+
+  /* Scroll to top of page on section change */
+  html { scroll-behavior: auto; }
+
+  @media (max-width: 600px) {
+    .nav-btn { font-size: 0.7rem; padding: 8px 14px; letter-spacing: 0.1em; }
+    .nav-page-info { font-size: 0.78rem; min-width: 110px; }
+    .nav-bar { gap: 10px; padding: 12px 12px; }
+  }
+
+  @keyframes sectionFadeIn { from { opacity:0; transform:translateY(18px);} to { opacity:1; transform:none;} }
+
+  /* keep bottom padding so content clears nav bar */
+  .book { padding-bottom: 80px; }
+
   /* ── STARRY NIGHT BETWEEN PAGES ── */
   .night-bg {
     position: fixed;
@@ -51,12 +129,7 @@
   }
   @keyframes twinkle { from { opacity: 0.2; transform: scale(1); } to { opacity: 1; transform: scale(1.4); } }
 
-  /* ── BOOK WRAPPER ── */
-  .book {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 20px 120px;
-  }
+  /* ── BOOK WRAPPER — defined above in nav section ── */
 
   /* ── COVER ── */
   .cover {
@@ -184,7 +257,7 @@
     animation: fadeIn 1s 2.5s forwards;
   }
   .scroll-hint span { animation: bounce 1.5s ease-in-out infinite; display: inline-block; }
-  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  @keyframes bounce { 0%,100%{transform:translateX(0)} 50%{transform:translateX(6px)} }
   @keyframes fadeIn { to { opacity: 0.8; } }
 
   /* ── PAGES ── */
@@ -593,6 +666,7 @@
 
 <div class="book">
 
+<div class="book-section" data-section="0" data-label="Cover">
   <!-- ══ COVER ══ -->
   <div class="cover">
     <div class="cover-frame">
@@ -609,9 +683,13 @@
       <div class="cover-divider"></div>
       <p class="cover-byline">After the immortal poem by <em>Kālidāsa</em></p>
     </div>
-    <p class="scroll-hint">Turn the page to begin &nbsp;<span>↓</span></p>
+    <p class="scroll-hint">Click Next to begin &nbsp;<span>→</span></p>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="1" data-label="Chapter I · The Curse">
   <!-- ══ PAGE 1 — THE CURSE ══ -->
   <div class="page bordered-page">
     <div class="page-inner">
@@ -649,6 +727,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="2" data-label="Chapter II · Eight Months of Sorrow">
   <!-- ══ PAGE 2 — THE LONGING ══ -->
   <div class="page">
     <div class="page-inner">
@@ -689,6 +771,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="3" data-label="Chapter III · The Magnificent Cloud">
   <!-- ══ PAGE 3 — THE CLOUD ══ -->
   <div class="page">
     <div class="page-inner">
@@ -729,6 +815,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="4" data-label="Chapter IV · The Itinerary">
   <!-- ══ PAGE 4 — THE JOURNEY MAP ══ -->
   <div class="page map-page">
     <div class="page-inner">
@@ -840,6 +930,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="5" data-label="Chapter V · The Beloved">
   <!-- ══ PAGE 5 — ALAKA & THE BELOVED ══ -->
   <div class="page">
     <div class="page-inner">
@@ -878,6 +972,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="6" data-label="Chapter VI · The Message">
   <!-- ══ PAGE 6 — THE MESSAGE ══ -->
   <div class="page bordered-page">
     <div class="page-inner">
@@ -924,6 +1022,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="7" data-label="पूर्वमेघः · 1–20">
   <!-- ══ SHLOKA PAGE 1 — पूर्वमेघः (verses 1–20) ══ -->
   <div class="page">
     <div class="page-inner">
@@ -1104,6 +1206,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="8" data-label="पूर्वमेघः · 21–65">
   <!-- ══ SHLOKA PAGE 2 — पूर्वमेघः (verses 21–65) ══ -->
   <div class="page">
     <div class="page-inner">
@@ -1204,6 +1310,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="9" data-label="उत्तरमेघः">
   <!-- ══ SHLOKA PAGE 3 — उत्तरमेघः ══ -->
   <div class="page bordered-page">
     <div class="page-inner">
@@ -1324,6 +1434,10 @@
     </div>
   </div>
 
+
+</div><!-- /section -->
+
+<div class="book-section" data-section="10" data-label="Epilogue">
   <!-- ══ FINAL PAGE ══ -->
   <div class="page">
     <div class="final-page">
@@ -1350,33 +1464,83 @@
     </div>
   </div>
 
+</div><!-- /section -->
+
 </div><!-- /book -->
 
 <script>
-  // Generate stars
+  // ── STARS ──
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 160; i++) {
     const s = document.createElement('div');
     s.className = 'star';
     const size = Math.random() * 2.5 + 0.5;
-    s.style.cssText = `
-      width:${size}px; height:${size}px;
-      left:${Math.random()*100}%;
-      top:${Math.random()*100}%;
-      --d:${(Math.random()*4+2).toFixed(1)}s;
-      animation-delay:${(Math.random()*5).toFixed(1)}s;
-    `;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+2).toFixed(1)}s;animation-delay:${(Math.random()*5).toFixed(1)}s;`;
     starsEl.appendChild(s);
   }
 
-  // Intersection observer for page fade-in
-  const pages = document.querySelectorAll('.page');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
+  // ── PAGE NAVIGATION ──
+  const sections = Array.from(document.querySelectorAll('.book-section'));
+  const total = sections.length;
+  let current = 0;
+
+  // Build nav bar
+  const nav = document.createElement('div');
+  nav.className = 'nav-bar';
+  nav.innerHTML = `
+    <button class="nav-btn" id="nav-prev">&#8592; Prev</button>
+    <div class="nav-page-info" id="nav-info"></div>
+    <button class="nav-btn" id="nav-next">Next &#8594;</button>
+  `;
+  document.body.appendChild(nav);
+
+  const prevBtn = document.getElementById('nav-prev');
+  const nextBtn = document.getElementById('nav-next');
+  const infoEl  = document.getElementById('nav-info');
+
+  function showSection(idx) {
+    sections.forEach((s, i) => {
+      s.classList.toggle('active', i === idx);
     });
-  }, { threshold: 0.08 });
-  pages.forEach(p => obs.observe(p));
+    current = idx;
+
+    // Update info label
+    const label = sections[idx].dataset.label || `Page ${idx}`;
+    infoEl.textContent = label;
+
+    // Update buttons
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current === total - 1);
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'auto' });
+
+    // Brief fade-in on the section
+    const sec = sections[idx];
+    sec.style.animation = 'none';
+    sec.offsetHeight; // reflow
+    sec.style.animation = 'sectionFadeIn 0.5s ease forwards';
+  }
+
+  prevBtn.addEventListener('click', () => { if (current > 0) showSection(current - 1); });
+  nextBtn.addEventListener('click', () => { if (current < total - 1) showSection(current + 1); });
+
+  // Keyboard arrow navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextBtn.click();
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prevBtn.click();
+  });
+
+  // Swipe support for mobile
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? nextBtn.click() : prevBtn.click(); }
+  }, {passive:true});
+
+  // Init
+  showSection(0);
 </script>
 </body>
 </html>
